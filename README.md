@@ -1,6 +1,6 @@
 # React Feedback App
 
-Projeto desenvolvido como parte do curso https://www.udemy.com/course/react-front-to-back-2022/. Tem como funcionalidade adicionar, remover E editar feedbacks usando uma API mockada com json-server.
+Projeto desenvolvido como parte do curso https://www.udemy.com/course/react-front-to-back-2022/. Tem como finalidade adicionar, remover e editar feedbacks usando uma API mockada com json-server.
 
 Esse projeto usa os fundamentos de React incluindo...
 
