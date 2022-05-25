@@ -21,19 +21,18 @@ function FeedbackForm() {
         }
     }, [feedbackEdit])
 
-    const handleTextChange = (e) => {
-        if (text === '') {
+    const handleTextChange = ({ target: { value } }) => {
+        if (value === '') {
             setBtnDisabled(true)
             setMessage(null)
-        } else if (text !== '' && text.trim().length <= 10) {
-            setBtnDisabled(true)
+        } else if (value.trim().length < 10) {
             setMessage('Text must be at least 10 characters')
+            setBtnDisabled(true)
         } else {
             setMessage(null)
             setBtnDisabled(false)
         }
-
-        setText(e.target.value)
+        setText(value)
     }
 
     const handleSubmit = (e) => {
@@ -44,10 +43,14 @@ function FeedbackForm() {
                 rating,
             }
 
-            if (feedbackEdit.edit)
+            if (feedbackEdit.edit) {
                 updateFeedback(feedbackEdit.item.id, newFeedback)
-            else addFeedback(newFeedback)
+            } else {
+                addFeedback(newFeedback)
+            }
 
+            setBtnDisabled(true)
+            setRating(10)
             setText('')
         }
     }
@@ -55,19 +58,20 @@ function FeedbackForm() {
     return (
         <Card>
             <form onSubmit={handleSubmit}>
-                <h2>How do you rate your service with us?</h2>
-                <RatingSelect select={(rating) => setRating(rating)} />
+                <h2>How would you rate your service with us?</h2>
+                <RatingSelect select={setRating} selected={rating} />
                 <div className="input-group">
                     <input
                         onChange={handleTextChange}
                         type="text"
-                        placeholder="White a review"
+                        placeholder="Write a review"
                         value={text}
                     />
                     <Button type="submit" isDisabled={btnDisabled}>
                         Send
                     </Button>
                 </div>
+
                 {message && <div className="message">{message}</div>}
             </form>
         </Card>
